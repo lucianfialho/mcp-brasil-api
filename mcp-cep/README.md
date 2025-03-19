@@ -8,3 +8,7 @@ Este módulo implementa um servidor MCP específico para consulta de CEPs. As pr
 * Consulta de CEP: Realiza requisições assíncronas à Brasil API para obter informações relacionadas ao CEP informado.
 * Ferramenta MCP: A função get_cep_info é exposta como uma ferramenta MCP, permitindo que clientes se conectem e solicitem dados de CEP de forma padronizada.
 * Configuração via Ambiente: O endpoint base da API é configurado por meio da variável de ambiente API_BASE_URL.
+
+## Modo de desenvolvimento
+- [Debugging](https://modelcontextprotocol.io/docs/tools/debugging)
+- [Inspector](https://modelcontextprotocol.io/docs/tools/inspector)
