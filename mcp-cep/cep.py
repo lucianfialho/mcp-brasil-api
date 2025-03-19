@@ -8,7 +8,7 @@ import dotenv
 
 dotenv.load_dotenv()
 
-API_BASE_URL = os.getenv("API_BASE_URL")
+API_BASE_URL = "https://brasilapi.com.br/api"
 API_BASE_PATH = "/cep/v2/"
 USER_AGENT = "brasil-api/1.0"
 
