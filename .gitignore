@@ -88,6 +88,8 @@ coverage.xml
 .pytest_cache/
 cover/
 
+uv.lock
+
 # Translations
 *.mo
 *.pot
