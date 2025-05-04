@@ -84,6 +84,10 @@ print(cnpj_info)
 # Consulte um DDD
 ddd_info = client.invoke_tool("consultar_ddd", {"ddd": "11"})
 print(ddd_info)
+
+# Consulte cotação de moedas comparadas ao Real
+cambio_info = client.invoke_tool("consultar_cambio", {"moeda": "USD"}, {"data": "2025-05-02"})
+print(cambio_info)
 ```
 
 ### Integração com LLMs (Claude, ChatGPT, etc.)
@@ -135,7 +139,7 @@ mcp-brasil-api/
 - [x] Consulta de CEP
 - [x] Consulta de CNPJ
 - [x] Consulta de DDD
-- [ ] Suporte a cambio
+- [x] Suporte a cambio
 - [ ] Suporte a bancos e instituições financeiras
 - [ ] Suporte a feriados nacionais
 - [ ] Taxas e índices econômicos

@@ -5,7 +5,8 @@ mcp = FastMCP("brasil_api")
 from src.tools.cep import get_cep_info
 from src.tools.cnpj import get_cnpj_info
 from src.tools.ddd import get_ddd_info
-from src.tools.cambio import get_lista_cambio 
+from src.tools.cambio import get_lista_cambio
+from src.tools.cambio import get_cambio_info
 
 @mcp.tool()
 async def consultar_cep(cep: str):
@@ -52,6 +53,7 @@ async def consultar_ddd(ddd: str):
     """
     return await get_ddd_info(ddd)
 
+@mcp.tool()
 async def consultar_cambio():
     """
     Obtém informações de uma lista de moedas de cambio.
@@ -60,6 +62,20 @@ async def consultar_cambio():
         dict: Um dicionário contendo informações relacionadas a moedas de cambio.
     """
     return await get_lista_cambio() 
+
+@mcp.tool()
+async def consultar_cambio_info(moeda:str,data:str):
+    """
+    Obtém informações de Cambio comparado ao real.
+    
+    Args:
+        moeda (str): A Moeda será obtida através do valor do simbolo na pesquisa get_lista_cambio . Exemplo: "USD", "EUR", etc.
+        data (str): A data será obtida através do input do cliente.
+        
+    Returns:
+        dict: Um dicionário contendo informações relacionadas a moedas de cambio comparadas ao real brasileiro.
+    """
+    return await get_cambio_info(moeda,data)
 
 if __name__ == "__main__":
     mcp.run()
