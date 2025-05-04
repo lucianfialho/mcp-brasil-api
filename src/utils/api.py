@@ -24,7 +24,7 @@ async def make_request(endpoint: str, *params: str) -> Dict[str, Any]:
     
     # Constrói a URL completa com o param como path parameter
     #url = f"{API_BASE_URL}{path}{param}"
-     # Junta os path params com barra
+    # Junta os path params com barra, garantindo que estejam limpos e não vazios
     full_path = "/".join(str(param).strip().strip("/") for param in params if param)
     url = f"{API_BASE_URL}{path}{full_path}"
 
