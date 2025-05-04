@@ -84,3 +84,17 @@ def is_valid_ddd(ddd: str) -> bool:
     # Aqui poderíamos adicionar verificações adicionais para DDDs válidos no Brasil
     # Por enquanto, apenas validamos o formato
     return True
+
+def is_valid_year(year: str) -> bool:
+    """
+    Valida um ano no formato YYYY.
+
+    Args:
+        year (str): O ano a ser validado.
+
+    Returns:
+        bool: True se o ano for válido, False caso contrário.
+    """
+    if not year or len(year) != 4 or not year.isdigit():
+        return False
+    return True
