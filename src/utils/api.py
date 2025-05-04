@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 from ..config import API_BASE_URL, API_PATHS, USER_AGENT
 
-async def make_request(endpoint: str, param: str) -> Dict[str, Any]:
+async def make_request(endpoint: str, *params: str) -> Dict[str, Any]:
     """
     Função genérica para fazer requisições para a Brasil API.
     
@@ -23,8 +23,13 @@ async def make_request(endpoint: str, param: str) -> Dict[str, Any]:
         return {"error": f"Endpoint desconhecido: {endpoint}"}
     
     # Constrói a URL completa com o param como path parameter
-    url = f"{API_BASE_URL}{path}{param}"
+    #url = f"{API_BASE_URL}{path}{param}"
+     # Junta os path params com barra
+    full_path = "/".join(param.strip("/") for param in params)
+    url = f"{API_BASE_URL}{path}{full_path}"
+
     print(f"URL: {url}")
+
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(
@@ -41,3 +46,4 @@ async def make_request(endpoint: str, param: str) -> Dict[str, Any]:
                 return {"error": f"Requisição falhou com status {response.status_code}"}
         except httpx.RequestError as e:
             return {"error": f"Erro na requisição: {str(e)}"}
+

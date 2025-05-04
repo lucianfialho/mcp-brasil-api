@@ -89,6 +89,9 @@ print(ddd_info)
 feriados_info = client.invoke_tool("consultar_feriados", "1989")
 print(feriados_info)
 
+# Consulte cotação de moedas comparadas ao Real
+cambio_info = client.invoke_tool("consultar_cambio", {"moeda": "USD"}, {"data": "2025-05-02"})
+print(cambio_info)
 ```
 
 ### Integração com LLMs (Claude, ChatGPT, etc.)
@@ -140,7 +143,7 @@ mcp-brasil-api/
 - [x] Consulta de CEP
 - [x] Consulta de CNPJ
 - [x] Consulta de DDD
-- [ ] Suporte a cambio
+- [x] Suporte a cambio
 - [ ] Suporte a bancos e instituições financeiras
 - [x] Suporte a feriados nacionais
 - [ ] Taxas e índices econômicos
