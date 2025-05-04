@@ -117,5 +117,6 @@ async def consultar_feriados(ano: str):
         ValueError: Se o ano fornecido não estiver no formato correto ou não for válido.
     """
     return await get_feriados_info(ano)
+
 if __name__ == "__main__":
     mcp.run()
