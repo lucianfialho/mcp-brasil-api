@@ -1,0 +1,31 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      api_base_url:
+        type: string
+        description: "URL base da Brasil API (opcional)"
+        default: "https://brasilapi.com.br/api"
+      user_agent:
+        type: string
+        description: "User Agent para requisições (opcional)"
+        default: "brasil-api/1.0"
+  commandFunction: |
+    (config) => {
+      const env = {};
+      
+      if (config.api_base_url) {
+        env.API_BASE_URL = config.api_base_url;
+      }
+      
+      if (config.user_agent) {
+        env.USER_AGENT = config.user_agent;
+      }
+      
+      return {
+        command: "python",
+        args: ["server.py"],
+        env: env
+      };
+    }
