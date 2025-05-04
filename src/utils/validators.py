@@ -2,8 +2,6 @@
     Funções para validação de dados Brasileiros
 """
 
-from .formatters import format_document, format_cep
-
 def is_valid_cep(cep: str) -> bool:
     """
     Valida um CEP (Código de Endereçamento Postal) brasileiro.
@@ -14,6 +12,7 @@ def is_valid_cep(cep: str) -> bool:
     Returns:
         bool: True se o CEP for válido, False caso contrário.
     """
+
     if not cep or len(cep) != 8 or not cep.isdigit():
         return False
     return True
