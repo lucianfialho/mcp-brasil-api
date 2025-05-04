@@ -3,7 +3,7 @@ Ferramenta para consulta de CNPJ
 """
 
 from typing import Dict, Any
-from ..utils.api import make_api_request
+from ..utils.api import make_request
 from ..utils.formatters import format_document
 from ..utils.validators import is_valid_cnpj
 
@@ -24,4 +24,4 @@ async def get_cnpj_info(cnpj: str) -> Dict[str, Any]:
     if not is_valid_cnpj(formatted_cnpj):
         return {"error": "CNPJ inválido. Deve conter 14 dígitos válidos."}
         
-    return await make_api_request("cnpj", formatted_cnpj)
+    return await make_request("cnpj", formatted_cnpj)

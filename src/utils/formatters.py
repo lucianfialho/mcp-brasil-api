@@ -4,24 +4,20 @@
 
 def format_document(document: str) -> str:
     """
-    Formata um documento (CPF ou CNPJ) para o formato padrão.
+    Remove a formatação de um documento (CNPJ), deixando apenas dígitos.
 
     Args:
-        document (str): O documento a ser formatado.
+        document (str): O documento com ou sem formatação.
 
     Returns:
-        str: O documento formatado.
+        str: O documento contendo apenas dígitos.
     """
-    if len(document) == 11:  # CPF
-        return f"{document[:3]}.{document[3:6]}.{document[6:9]}-{document[9:]}"
-    elif len(document) == 14:  # CNPJ
-        return f"{document[:2]}.{document[2:5]}.{document[5:8]}/{document[8:12]}-{document[12:]}"
-    else:
-        raise ValueError("Invalid document length")
+    # Remove todos os caracteres não numéricos
+    return ''.join(filter(str.isdigit, document))
 
 def format_cep(cep: str) -> str:
     """
-    Formata um CEP para o formato padrão.
+    Formata um CEP para o formato.
 
     Args:
         cep (str): O CEP a ser formatado.

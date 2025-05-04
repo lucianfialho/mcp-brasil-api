@@ -20,8 +20,11 @@ async def get_cep_info(cep: str) -> List[Dict[str, Any]]:
     Raises:
         ValueError: Se o CEP fornecido não estiver no formato correto.
     """
-    if not is_valid_cep(cep):
-        raise ValueError("CEP inválido. O CEP deve ter 8 dígitos numéricos.")
     
     formatted_cep = format_cep(cep)
-    return await make_request("cep", {"cep": formatted_cep})
+
+    if not is_valid_cep(formatted_cep):
+        raise ValueError("CEP inválido. O CEP deve ter 8 dígitos numéricos.")
+    
+    
+    return await make_request("cep", formatted_cep)
