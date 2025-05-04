@@ -6,6 +6,7 @@ from src.tools.cep import get_cep_info
 from src.tools.cnpj import get_cnpj_info
 from src.tools.ddd import get_ddd_info
 from src.tools.feriados import get_feriados_info
+from src.tools.cambio import get_lista_cambio 
 
 @mcp.tool()
 async def consultar_cep(cep: str):
@@ -68,6 +69,16 @@ async def consultar_feriados(ano: str):
         ValueError: Se o ano fornecido não estiver no formato correto ou não for válido.
     """
     return await get_feriados_info(ano)
+
+@mcp.tool()
+async def consultar_cambio():
+    """
+    Obtém informações de uma lista de moedas de cambio.
+    
+    Returns:
+        dict: Um dicionário contendo informações relacionadas a moedas de cambio.
+    """
+    return await get_lista_cambio()  # Ensure get_cnpj_info is an async function
 
 
 if __name__ == "__main__":
