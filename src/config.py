@@ -11,5 +11,7 @@ API_PATHS = {
     "lista_banco": "/banks/v1",
     "banco": "/banks/v1/",
     "feriados": "/feriados/v1/",
+    "lista_cambio": "/cambio/v1/moedas/",
+    "cambio": "/cambio/v1/cotacao/",
     # Add more API paths as needed
 }
