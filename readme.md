@@ -10,6 +10,7 @@ MCP Brasil API é um projeto open source que disponibiliza dados da [Brasil API]
 
 - **Consulta de CEP**: Obtenha informações detalhadas de endereços a partir de um CEP
 - **Consulta de CNPJ**: Recupere dados cadastrais de empresas a partir de um CNPJ
+- **Consulta de DDD**: Consulte estado e cidades atendidas por um DDD brasileiro
 
 ## Por que MCP?
 
@@ -32,7 +33,7 @@ cd mcp-brasil-api
 pip install -e .
 ```
 
-## ⚙️ Configuração
+## Configuração
 
 Crie um arquivo `.env` baseado no `.env.example` com as seguintes configurações:
 
@@ -79,6 +80,10 @@ print(cep_info)
 # Consulte um CNPJ
 cnpj_info = client.invoke_tool("consultar_cnpj", {"cnpj": "00.000.000/0001-91"})
 print(cnpj_info)
+
+# Consulte um DDD
+ddd_info = client.invoke_tool("consultar_ddd", {"ddd": "11"})
+print(ddd_info)
 ```
 
 ### Integração com LLMs (Claude, ChatGPT, etc.)
@@ -129,8 +134,9 @@ mcp-brasil-api/
 
 - [x] Consulta de CEP
 - [x] Consulta de CNPJ
+- [x] Consulta de DDD
+- [ ] Suporte a cambio
 - [ ] Suporte a bancos e instituições financeiras
-- [ ] Consulta de DDD
 - [ ] Suporte a feriados nacionais
 - [ ] Taxas e índices econômicos
 - [ ] Cotações de moedas

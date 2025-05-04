@@ -6,5 +6,6 @@ API_PATHS = {
     "cnpj": "/cnpj/v1/",
     "lista_cambio": "/cambio/v1/moedas",
     "cambio": "/cambio/v1/cotacao",
+    "ddd": "/ddd/v1/",
     # Add more API paths as needed
 }
