@@ -55,6 +55,7 @@ async def consultar_ddd(ddd: str):
     return await get_ddd_info(ddd)
 
 @mcp.tool()
+<<<<<<< HEAD
 async def consultar_cambio():
     """
     Obtém informações de uma lista de moedas de cambio.

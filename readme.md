@@ -96,7 +96,7 @@ cambio_info = client.invoke_tool("consultar_cambio", {"moeda": "USD"}, {"data": 
 print(cambio_info)
 
 # Consulte cotação de moedas comparadas ao Real
-cambio_info = client.invoke_tool("consultar_cambio", "USD", "2025-05-02")
+cambio_info = client.invoke_tool("consultar_cambio_info", "USD", "2025-05-02")
 print(cambio_info)
 
 # Consulte informações bancárias
@@ -106,8 +106,6 @@ print(banco_info)
 # Consulte os feriados de um ano
 feriados_info = client.invoke_tool("consultar_feriados", "2025")
 print(feriados_info)
-
->>>>>>> 612814f (-- ajustando readme)
 ```
 
 ### Integração com LLMs (Claude, ChatGPT, etc.)
