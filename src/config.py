@@ -10,5 +10,6 @@ API_PATHS = {
     "cambio": "/cambio/v1/cotacao/",
     "lista_banco": "/banks/v1",
     "banco": "/banks/v1/",
+    "feriados": "/feriados/v1/",
     # Add more API paths as needed
 }
