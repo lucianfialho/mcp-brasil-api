@@ -1,11 +1,10 @@
 from mcp.server.fastmcp import FastMCP
 
-# Use "mcp" como nome para a instância FastMCP
 mcp = FastMCP("brasil_api")
 
-from src.tools.cep import get_cep_info  # Ensure this module and function exist
-from src.tools.cnpj import get_cnpj_info  # Ensure this module and function exist
-
+from src.tools.cep import get_cep_info
+from src.tools.cnpj import get_cnpj_info
+from src.tools.ddd import get_ddd_info
 @mcp.tool()
 async def consultar_cep(cep: str):
     """
@@ -20,7 +19,7 @@ async def consultar_cep(cep: str):
     Raises:
         ValueError: Se o CEP fornecido não estiver no formato correto.
     """
-    return await get_cep_info(cep)  # Ensure get_cep_info is an async function
+    return await get_cep_info(cep)
 
 @mcp.tool()
 async def consultar_cnpj(cnpj: str):
@@ -32,8 +31,24 @@ async def consultar_cnpj(cnpj: str):
     Returns:
         dict: Um dicionário contendo informações relacionadas ao CNPJ fornecido.
     """
-    return await get_cnpj_info(cnpj)  # Ensure get_cnpj_info is an async function
+    return await get_cnpj_info(cnpj)
 
+@mcp.tool()
+async def consultar_ddd(ddd: str):
+    """
+    Obtém informações para um DDD brasileiro.
+    
+    Args:
+        ddd (str): Código DDD brasileiro (ex: '11', '21', etc.).
+        
+    Returns:
+        dict: Um dicionário contendo informações relacionadas ao DDD fornecido,
+              incluindo estado e cidades atendidas.
+        
+    Raises:
+        ValueError: Se o DDD fornecido não estiver no formato correto ou não for válido.
+    """
+    return await get_ddd_info(ddd)
 
 if __name__ == "__main__":
     mcp.run()

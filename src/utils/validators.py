@@ -63,3 +63,24 @@ def is_valid_cnpj(cnpj: str) -> bool:
         True se o CNPJ é válido, False caso contrário.
     """
     return validar_cnpj(cnpj)
+
+def is_valid_ddd(ddd: str) -> bool:
+    """
+    Valida um código DDD brasileiro.
+
+    Args:
+        ddd (str): O código DDD a ser validado.
+
+    Returns:
+        bool: True se o DDD for válido, False caso contrário.
+    """
+    # Remove qualquer caractere não-numérico
+    ddd_clean = ''.join(filter(str.isdigit, ddd))
+    
+    # Verifica se o DDD tem entre 2 e 3 dígitos (para suportar possíveis formatos)
+    if not ddd_clean or not (2 <= len(ddd_clean) <= 3) or not ddd_clean.isdigit():
+        return False
+        
+    # Aqui poderíamos adicionar verificações adicionais para DDDs válidos no Brasil
+    # Por enquanto, apenas validamos o formato
+    return True
