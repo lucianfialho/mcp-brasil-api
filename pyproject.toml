@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-brasil-api"
+version = "0.1.0"
+description = "Servidor MCP (Model Context Protocol) para acesso a dados da Brasil API"
+authors = [
+    {name = "Lucian Fialho", email = "lucian@metricasboss.com.br"},
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "mcp[cli]>=1.4.1",
+    "httpx>=0.28.1",
+    "python-dotenv>=1.0.1",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/lucianfialho/mcp-brasil-api"
+"Bug Tracker" = "https://github.com/lucianfialho/mcp-brasil-api/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+# Define o comando para executar o servidor
+[project.scripts]
+brasil-api-mcp = "server:mcp.run"
+
+# Configurações específicas para testes
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
