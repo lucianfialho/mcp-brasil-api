@@ -5,6 +5,7 @@ mcp = FastMCP("brasil_api")
 
 from src.tools.cep import get_cep_info  # Ensure this module and function exist
 from src.tools.cnpj import get_cnpj_info  # Ensure this module and function exist
+from src.tools.cambio import get_lista_cambio  # Ensure this module and function exist
 
 @mcp.tool()
 async def consultar_cep(cep: str):
@@ -33,6 +34,16 @@ async def consultar_cnpj(cnpj: str):
         dict: Um dicionário contendo informações relacionadas ao CNPJ fornecido.
     """
     return await get_cnpj_info(cnpj)  # Ensure get_cnpj_info is an async function
+
+@mcp.tool()
+async def consultar_cambio():
+    """
+    Obtém informações de uma lista de moedas de cambio.
+    
+    Returns:
+        dict: Um dicionário contendo informações relacionadas a moedas de cambio.
+    """
+    return await get_lista_cambio()  # Ensure get_cnpj_info is an async function
 
 
 if __name__ == "__main__":
