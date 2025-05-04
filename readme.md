@@ -1,37 +1,155 @@
-E se a gente plugasse o Brasil api dentro de todos os LLMS?
+# MCP Brasil API
+
+> Plugando a Brasil API em todos os LLMs através do Model Context Protocol
 
 ## Visão Geral
-O MCP Brasil API é um projeto open source que consome dados públicos da Brasil API e os expõe através do Model Context Protocol (MCP). Inspirado no conceito de padronização (como uma porta USB-C para integrações de IA), nosso projeto transforma endpoints de dados — inicialmente focados em CEPs — em serviços MCP fáceis de integrar em aplicações que necessitam de acesso rápido e seguro a informações brasileiras.
+
+MCP Brasil API é um projeto open source que disponibiliza dados da [Brasil API](https://brasilapi.com.br) através do [Model Context Protocol (MCP)](https://github.com/anthropics/anthropic-cookbook/tree/main/model_context_protocol). Funcionando como um adaptador universal (similar a uma porta USB-C para integrações de IA), este projeto transforma endpoints de dados brasileiros em serviços MCP padronizados, facilitando o acesso a informações locais por assistentes de IA, LLMs e aplicações que utilizam o padrão MCP.
+
+## Recursos Disponíveis
+
+- **Consulta de CEP**: Obtenha informações detalhadas de endereços a partir de um CEP
+- **Consulta de CNPJ**: Recupere dados cadastrais de empresas a partir de um CNPJ
 
 ## Por que MCP?
-Com a crescente demanda por integrações entre assistentes de IA e dados reais, as abordagens tradicionais exigem código personalizado para cada fonte. O Model Context Protocol resolve esse desafio ao oferecer:
 
-* Integração Padronizada: Conecte diversos dados e serviços com um único protocolo.
-* Escalabilidade: Adicione ou substitua servidores MCP sem alterar a lógica do cliente.
-* Segurança e Eficiência: Gerencie as integrações com melhores práticas de segurança e desempenho.
-* Flexibilidade: Ideal para expandir para novos endpoints (como CNPJ, bancos, etc.) conforme o ecossistema evolui.
+Com a crescente demanda por integrações entre LLMs e dados reais, o Model Context Protocol (MCP) oferece:
 
-## Documentação
-Endpoints MCP: Cada módulo, como o mcp-cep, expõe ferramentas que consomem os dados da Brasil API.
-Configuração: Utilize variáveis de ambiente para definir parâmetros como API_BASE_URL. Confira o arquivo .env.example para iniciar.
-Especificação MCP: Para mais detalhes sobre o protocolo, consulte a documentação oficial do MCP.
+- **Integração Padronizada**: Conecte diversos dados e serviços com um único protocolo
+- **Escalabilidade**: Adicione ou substitua servidores MCP sem alterar a lógica do cliente
+- **Segurança e Eficiência**: Gerencie integrações com melhores práticas de segurança e desempenho
+- **Flexibilidade**: Permite expandir facilmente para novos endpoints da Brasil API conforme necessário
 
-## Estrutura de pastas
+## Instalação
+
+```bash
+# Instale via pip
+pip install mcp-brasil-api
+
+# Ou clone o repositório
+git clone https://github.com/lucianfialho/mcp-brasil-api
+cd mcp-brasil-api
+pip install -e .
+```
+
+## ⚙️ Configuração
+
+Crie um arquivo `.env` baseado no `.env.example` com as seguintes configurações:
+
+```
+API_BASE_URL=https://brasilapi.com.br/api
+USER_AGENT=brasil-api/1.0
+```
+
+## Uso
+
+### Executando o servidor MCP
+
+```bash
+# Iniciar o servidor
+brasil-api-mcp
+```
+
+### Configuração com Smithery
+
+O projeto inclui configuração para Smithery, permitindo inicialização rápida:
+
+```yaml
+# Configuração em smithery.yaml
+api_base_url: "https://brasilapi.com.br/api"
+user_agent: "brasil-api/1.0"
+```
+
+### Exemplos de uso com cliente MCP
+
+```python
+from mcp.client import McpClient
+
+# Conecte ao servidor MCP Brasil API
+client = McpClient("http://localhost:8000")
+
+# Liste as ferramentas disponíveis
+tools = client.list_tools()
+print(tools)
+
+# Consulte um CEP
+cep_info = client.invoke_tool("consultar_cep", {"cep": "01001-000"})
+print(cep_info)
+
+# Consulte um CNPJ
+cnpj_info = client.invoke_tool("consultar_cnpj", {"cnpj": "00.000.000/0001-91"})
+print(cnpj_info)
+```
+
+### Integração com LLMs (Claude, ChatGPT, etc.)
+
+```python
+from anthropic import Anthropic
+from mcp.client import McpClient
+
+# Configure cliente MCP
+mcp_client = McpClient("http://localhost:8000")
+tools = mcp_client.list_tools()
+
+# Configure o cliente Claude com as ferramentas do MCP
+anthropic = Anthropic()
+response = anthropic.messages.create(
+    model="claude-3-5-sonnet-20240229",
+    max_tokens=1000,
+    temperature=0,
+    system="Você tem acesso a dados brasileiros via MCP.",
+    messages=[{
+        "role": "user", 
+        "content": "Encontre informações sobre o CEP 01001-000"
+    }],
+    tools=tools  # Registra as ferramentas do MCP Brasil API
+)
+```
+
+## Estrutura do Projeto
+
 ```
 mcp-brasil-api/
-├── mcp-cep/            # Módulo MCP para consultas de CEP
-│   ├── cep.py          # Implementação da ferramenta de consulta
-│   ├── main.py         # Ponto de entrada (teste simples)
-│   ├── README.md       # Documentação interna do módulo
-│   └── utils/          # Funções utilitárias (se necessário)
-├── .env.example        # Exemplo de configuração de ambiente
-├── CONTRIBUTING.md     # Diretrizes para contribuições
-└── LICENSE             # Definição da licença (ex.: MIT ou Apache 2.0)
+├── src/
+│   ├── tools/           # Implementações das ferramentas MCP
+│   │   ├── cep.py       # Ferramenta para consulta de CEP
+│   │   └── cnpj.py      # Ferramenta para consulta de CNPJ
+│   ├── utils/           # Funções utilitárias
+│   │   ├── api.py       # Cliente HTTP para Brasil API
+│   │   ├── formatters.py # Formatação de dados
+│   │   └── validators.py # Validação de dados
+│   └── config.py        # Configurações da aplicação
+├── server.py            # Servidor MCP principal
+├── Dockerfile           # Containerização
+├── pyproject.toml       # Configuração do pacote Python
+└── smithery.yaml        # Configuração para Smithery
 ```
 
-## Como Contribuir
-Estamos em fase de desenvolvimento colaborativo e sua participação é muito bem-vinda! Para contribuir:
+## Roadmap
 
-1. Abra uma Issue: Identifique pontos de melhoria ou novas funcionalidades.
-2. Submeta Pull Requests: Siga as orientações do nosso CONTRIBUTING.md.
-3. Participe da Comunidade: Junte-se às discussões e compartilhe ideias para expandir a rede de MCP Servers.
+- [x] Consulta de CEP
+- [x] Consulta de CNPJ
+- [ ] Suporte a bancos e instituições financeiras
+- [ ] Consulta de DDD
+- [ ] Suporte a feriados nacionais
+- [ ] Taxas e índices econômicos
+- [ ] Cotações de moedas
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Por favor, leia nosso guia de contribuição antes de enviar pull requests.
+
+1. Faça um fork do projeto
+2. Crie sua branch de recurso (`git checkout -b feature/novo-recurso`)
+3. Commit suas mudanças (`git commit -m 'Adiciona novo recurso'`)
+4. Push para a branch (`git push origin feature/novo-recurso`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## 🙏 Agradecimentos
+
+- [Brasil API](https://brasilapi.com.br) por fornecer os dados públicos
+- [MCP (Model Context Protocol)](https://github.com/anthropics/anthropic-cookbook/tree/main/model_context_protocol) por padronizar a comunicação entre modelos e fontes de dados
