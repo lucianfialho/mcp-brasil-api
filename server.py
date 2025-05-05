@@ -55,7 +55,29 @@ async def consultar_ddd(ddd: str):
     return await get_ddd_info(ddd)
 
 @mcp.tool()
-<<<<<<< HEAD
+async def consultar_banco():
+    """
+    Obtém informações de um banco brasileiro.
+        
+    Returns:
+        dict: Um dicionário contendo informações relacionadas ao banco fornecido.
+    """
+    return await get_lista_banco()
+
+@mcp.tool()
+async def consultar_banco_info(codigo: str):
+    """
+    Obtém informações de um banco específico pelo código.
+    
+    Args:
+        codigo (str): Código do banco
+        
+    Returns:
+        dict: Retorna dados de um banco específico, incluindo ISPB, nome, código e nome completo.
+    """
+    return await get_banco_info(codigo)
+
+@mcp.tool()
 async def consultar_cambio():
     """
     Obtém informações de uma lista de moedas de cambio.
@@ -78,29 +100,6 @@ async def consultar_cambio_info(moeda: str, data: str):
         dict: Um dicionário contendo informações relacionadas a moedas de cambio comparadas ao real brasileiro.
     """
     return await get_cambio_info(moeda, data)
-
-@mcp.tool()
-async def consultar_banco():
-    """
-    Obtém informações de um banco brasileiro.
-        
-    Returns:
-        dict: Um dicionário contendo informações relacionadas ao banco fornecido.
-    """
-    return await get_lista_banco()
-
-@mcp.tool()
-async def consultar_banco_info(codigo: str):
-    """
-    Obtém informações de um banco específico pelo código.
-    
-    Args:
-        codigo (str): Código do banco
-        
-    Returns:
-        dict: Retorna dados de um banco específico, incluindo ISPB, nome, código e nome completo.
-    """
-    return await get_banco_info(codigo)
 
 @mcp.tool()
 async def consultar_feriados(ano: str):
