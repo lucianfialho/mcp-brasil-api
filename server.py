@@ -55,7 +55,6 @@ async def consultar_ddd(ddd: str):
     return await get_ddd_info(ddd)
 
 @mcp.tool()
-<<<<<<< HEAD
 async def consultar_feriados(ano: str):
     """
     Obtém informações sobre os feriados nacionais brasileiros para um ano específico.
@@ -73,8 +72,6 @@ async def consultar_feriados(ano: str):
     return await get_feriados_info(ano)
 
 @mcp.tool()
-=======
->>>>>>> 70663df (fucionando busca de cambio)
 async def consultar_cambio():
     """
     Obtém informações de uma lista de moedas de cambio.
