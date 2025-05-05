@@ -11,6 +11,8 @@ MCP Brasil API é um projeto open source que disponibiliza dados da [Brasil API]
 - **Consulta de CEP**: Obtenha informações detalhadas de endereços a partir de um CEP
 - **Consulta de CNPJ**: Recupere dados cadastrais de empresas a partir de um CNPJ
 - **Consulta de DDD**: Consulte estado e cidades atendidas por um DDD brasileiro
+- **Consulta de Cambio**: Consulte o cambio internacional pareado com o Real
+- **Consulta de Bancos**: Consulte informações dos bancos através do nome ou codigo bancário
 
 ## Por que MCP?
 
@@ -84,6 +86,13 @@ print(cnpj_info)
 # Consulte um DDD
 ddd_info = client.invoke_tool("consultar_ddd", {"ddd": "11"})
 print(ddd_info)
+
+# Consulte cotação de moedas comparadas ao Real
+cambio_info = client.invoke_tool("consultar_cambio", {"moeda": "USD"}, {"data": "2025-05-02"})
+print(cambio_info)
+# Consulte informações bancárias
+banco_info = client.invoke_tool("consultar_banco", {"codigo": "1"})
+print(banco_info)
 ```
 
 ### Integração com LLMs (Claude, ChatGPT, etc.)
@@ -135,8 +144,8 @@ mcp-brasil-api/
 - [x] Consulta de CEP
 - [x] Consulta de CNPJ
 - [x] Consulta de DDD
-- [ ] Suporte a cambio
-- [ ] Suporte a bancos e instituições financeiras
+- [x] Suporte a cambio
+- [x] Suporte a bancos e instituições financeiras
 - [ ] Suporte a feriados nacionais
 - [ ] Taxas e índices econômicos
 - [ ] Cotações de moedas
