@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Servidor MCP (Model Context Protocol) para acesso a dados da Brasil API"
 authors = [
     {name = "Lucian Fialho", email = "lucian@metricasboss.com.br"},
+    {name = "Raphael Loureiro", email = "raphaelloureirodev@gmail.com"},
 ]
 readme = "README.md"
 requires-python = ">=3.10"
