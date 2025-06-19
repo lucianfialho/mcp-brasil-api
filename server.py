@@ -11,12 +11,46 @@ from src.tools.ddd import get_ddd_info
 from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio, get_cambio_info
 from src.tools.banco import get_lista_banco, get_banco_info
+from src.exceptions import (
+    BrasilAPINotFoundError,
+    BrasilAPIInvalidRequestError,
+    BrasilAPIServiceUnavailableError,
+    BrasilAPIUnknownError,
+)
 
 @mcp.app.exception_handler(ValidationError)
 async def pydantic_validation_exception_handler(request: Request, exc: ValidationError):
     return JSONResponse(
         status_code=400,
         content={"detail": exc.errors()}
+    )
+
+@mcp.app.exception_handler(BrasilAPINotFoundError)
+async def brasil_api_not_found_exception_handler(request: Request, exc: BrasilAPINotFoundError):
+    return JSONResponse(
+        status_code=404,
+        content={"detail": str(exc) if str(exc) else "Recurso não encontrado na Brasil API. Verifique o identificador fornecido."}
+    )
+
+@mcp.app.exception_handler(BrasilAPIInvalidRequestError)
+async def brasil_api_invalid_request_exception_handler(request: Request, exc: BrasilAPIInvalidRequestError):
+    return JSONResponse(
+        status_code=400,
+        content={"detail": str(exc) if str(exc) else "Requisição inválida para a Brasil API. Verifique os dados de entrada."}
+    )
+
+@mcp.app.exception_handler(BrasilAPIServiceUnavailableError)
+async def brasil_api_service_unavailable_exception_handler(request: Request, exc: BrasilAPIServiceUnavailableError):
+    return JSONResponse(
+        status_code=503,
+        content={"detail": str(exc) if str(exc) else "O serviço da Brasil API está temporariamente indisponível. Tente novamente mais tarde."}
+    )
+
+@mcp.app.exception_handler(BrasilAPIUnknownError)
+async def brasil_api_unknown_exception_handler(request: Request, exc: BrasilAPIUnknownError):
+    return JSONResponse(
+        status_code=500,
+        content={"detail": str(exc) if str(exc) else "Ocorreu um erro interno inesperado. Por favor, tente novamente ou contate o suporte."}
     )
 
 @mcp.tool()
