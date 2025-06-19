@@ -5,6 +5,7 @@ mcp = FastMCP("brasil_api")
 from src.tools.cep import get_cep_info
 from src.tools.cnpj import get_cnpj_info
 from src.tools.ddd import get_ddd_info
+from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio
 from src.tools.cambio import get_cambio_info
 
@@ -54,6 +55,23 @@ async def consultar_ddd(ddd: str):
     return await get_ddd_info(ddd)
 
 @mcp.tool()
+async def consultar_feriados(ano: str):
+    """
+    Obtém informações sobre os feriados nacionais brasileiros para um ano específico.
+    
+    Args:
+        ano (str): Ano para o qual se deseja consultar os feriados (ex: '2023').
+        
+    Returns:
+        dict: Um dicionário contendo informações sobre os feriados nacionais
+              do Brasil para o ano especificado.
+        
+    Raises:
+        ValueError: Se o ano fornecido não estiver no formato correto ou não for válido.
+    """
+    return await get_feriados_info(ano)
+
+@mcp.tool()
 async def consultar_cambio():
     """
     Obtém informações de uma lista de moedas de cambio.
@@ -61,7 +79,7 @@ async def consultar_cambio():
     Returns:
         dict: Um dicionário contendo informações relacionadas a moedas de cambio.
     """
-    return await get_lista_cambio() 
+    return await get_lista_cambio()  # Ensure get_cnpj_info is an async function
 
 @mcp.tool()
 async def consultar_cambio_info(moeda:str,data:str):

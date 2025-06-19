@@ -74,16 +74,21 @@ tools = client.list_tools()
 print(tools)
 
 # Consulte um CEP
-cep_info = client.invoke_tool("consultar_cep", {"cep": "01001-000"})
+cep_info = client.invoke_tool("consultar_cep", "01001-000")
 print(cep_info)
 
 # Consulte um CNPJ
-cnpj_info = client.invoke_tool("consultar_cnpj", {"cnpj": "00.000.000/0001-91"})
+cnpj_info = client.invoke_tool("consultar_cnpj", "00.000.000/0001-91")
 print(cnpj_info)
 
 # Consulte um DDD
-ddd_info = client.invoke_tool("consultar_ddd", {"ddd": "11"})
+ddd_info = client.invoke_tool("consultar_ddd", "11")
 print(ddd_info)
+
+
+# Consulte um feriados
+feriados_info = client.invoke_tool("consultar_feriados", "1989")
+print(feriados_info)
 
 # Consulte cotação de moedas comparadas ao Real
 cambio_info = client.invoke_tool("consultar_cambio", {"moeda": "USD"}, {"data": "2025-05-02"})
@@ -141,7 +146,7 @@ mcp-brasil-api/
 - [x] Consulta de DDD
 - [x] Suporte a cambio
 - [ ] Suporte a bancos e instituições financeiras
-- [ ] Suporte a feriados nacionais
+- [x] Suporte a feriados nacionais
 - [ ] Taxas e índices econômicos
 - [ ] Cotações de moedas
 
