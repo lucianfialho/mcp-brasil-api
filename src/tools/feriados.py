@@ -5,6 +5,12 @@
 from typing import Dict, Any
 from ..utils.api import make_request
 from ..utils.validators import is_valid_year
+from ..exceptions import (
+    BrasilAPINotFoundError,
+    BrasilAPIInvalidRequestError,
+    BrasilAPIServiceUnavailableError,
+    BrasilAPIUnknownError,
+)
 
 async def get_feriados_info(year: str) -> Dict[str, Any]:
     """
@@ -19,6 +25,10 @@ async def get_feriados_info(year: str) -> Dict[str, Any]:
         
     Raises:
         ValueError: Se o ano fornecido não estiver no formato correto ou não for válido.
+        BrasilAPINotFoundError: Se o ano não for encontrado na Brasil API (HTTP 404).
+        BrasilAPIInvalidRequestError: Se a requisição para a Brasil API for inválida (HTTP 400).
+        BrasilAPIServiceUnavailableError: Se a Brasil API estiver indisponível (HTTP 5xx) ou houver erro de rede.
+        BrasilAPIUnknownError: Para outros erros inesperados.
     """
     # Valida o ano
     if not is_valid_year(year):

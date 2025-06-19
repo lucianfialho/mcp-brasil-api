@@ -7,6 +7,12 @@ from ..utils.api import make_request
 from ..utils.formatters import format_cep
 from .schemas import ConsultarCepInput
 from pydantic import ValidationError
+from ..exceptions import (
+    BrasilAPINotFoundError,
+    BrasilAPIInvalidRequestError,
+    BrasilAPIServiceUnavailableError,
+    BrasilAPIUnknownError,
+)
 
 async def get_cep_info(cep: str) -> List[Dict[str, Any]]:
     """
@@ -20,6 +26,10 @@ async def get_cep_info(cep: str) -> List[Dict[str, Any]]:
 
     Raises:
         ValidationError: Se o CEP fornecido não estiver no formato correto.
+        BrasilAPINotFoundError: Se o CEP não for encontrado na Brasil API (HTTP 404).
+        BrasilAPIInvalidRequestError: Se a requisição para a Brasil API for inválida (HTTP 400).
+        BrasilAPIServiceUnavailableError: Se o serviço da Brasil API estiver indisponível (HTTP 5xx) ou houver erro de rede.
+        BrasilAPIUnknownError: Para outros erros inesperados.
     """
     # Validação com Pydantic
     ConsultarCepInput(cep=cep)
