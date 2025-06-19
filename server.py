@@ -1,4 +1,7 @@
 from mcp.server.fastmcp import FastMCP
+from pydantic import ValidationError
+from fastapi.responses import JSONResponse
+from fastapi import Request
 
 mcp = FastMCP("brasil_api")
 
@@ -8,6 +11,13 @@ from src.tools.ddd import get_ddd_info
 from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio, get_cambio_info
 from src.tools.banco import get_lista_banco, get_banco_info
+
+@mcp.app.exception_handler(ValidationError)
+async def pydantic_validation_exception_handler(request: Request, exc: ValidationError):
+    return JSONResponse(
+        status_code=400,
+        content={"detail": exc.errors()}
+    )
 
 @mcp.tool()
 async def consultar_cep(cep: str):
@@ -21,7 +31,7 @@ async def consultar_cep(cep: str):
         dict: Um dicionário contendo informações relacionadas ao CEP fornecido.
         
     Raises:
-        ValueError: Se o CEP fornecido não estiver no formato correto.
+        ValidationError: Se o CEP fornecido não estiver no formato correto.
     """
     return await get_cep_info(cep)
 
