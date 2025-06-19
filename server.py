@@ -9,6 +9,7 @@ from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio
 from src.tools.cambio import get_cambio_info
 
+
 @mcp.tool()
 async def consultar_cep(cep: str):
     """
@@ -53,48 +54,6 @@ async def consultar_ddd(ddd: str):
         ValueError: Se o DDD fornecido não estiver no formato correto ou não for válido.
     """
     return await get_ddd_info(ddd)
-
-@mcp.tool()
-async def consultar_feriados(ano: str):
-    """
-    Obtém informações sobre os feriados nacionais brasileiros para um ano específico.
-    
-    Args:
-        ano (str): Ano para o qual se deseja consultar os feriados (ex: '2023').
-        
-    Returns:
-        dict: Um dicionário contendo informações sobre os feriados nacionais
-              do Brasil para o ano especificado.
-        
-    Raises:
-        ValueError: Se o ano fornecido não estiver no formato correto ou não for válido.
-    """
-    return await get_feriados_info(ano)
-
-@mcp.tool()
-async def consultar_cambio():
-    """
-    Obtém informações de uma lista de moedas de cambio.
-    
-    Returns:
-        dict: Um dicionário contendo informações relacionadas a moedas de cambio.
-    """
-    return await get_lista_cambio()  # Ensure get_cnpj_info is an async function
-
-
-@mcp.tool()
-async def consultar_cambio_info(moeda:str,data:str):
-    """
-    Obtém informações de Cambio comparado ao real.
-    
-    Args:
-        moeda (str): A Moeda será obtida através do valor do simbolo na pesquisa get_lista_cambio . Exemplo: "USD", "EUR", etc.
-        data (str): A data será obtida através do input do cliente.
-        
-    Returns:
-        dict: Um dicionário contendo informações relacionadas a moedas de cambio comparadas ao real brasileiro.
-    """
-    return await get_cambio_info(moeda,data)
 
 if __name__ == "__main__":
     mcp.run()

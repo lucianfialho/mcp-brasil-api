@@ -92,6 +92,10 @@ print(feriados_info)
 # Consulte cotação de moedas comparadas ao Real
 cambio_info = client.invoke_tool("consultar_cambio", {"moeda": "USD"}, {"data": "2025-05-02"})
 print(cambio_info)
+
+# Consulte cotação de moedas comparadas ao Real
+cambio_info = client.invoke_tool("consultar_cambio", {"moeda": "USD"}, {"data": "2025-05-02"})
+print(cambio_info)
 ```
 
 ### Integração com LLMs (Claude, ChatGPT, etc.)
