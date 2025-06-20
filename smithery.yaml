@@ -29,3 +29,27 @@ startCommand:
         env: env
       };
     }
+tools:
+  listar_veiculos_fipe:
+    description: Lista os modelos de veículos FIPE para uma marca e tipo de veículo específicos.
+    parameters:
+      tipo_veiculo:
+        type: string
+        description: Tipo do veículo ('carros', 'motos', 'caminhoes').
+        required: true
+      marca:
+        type: integer
+        description: Código da marca FIPE.
+        required: true
+      tabela_referencia:
+        type: integer
+        description: Código da tabela FIPE de referência (opcional).
+        required: false
+    returns:
+      type: array
+      description: Lista de veículos FIPE para a marca e tipo informados.
+    errors:
+      - BrasilAPINotFoundError
+      - BrasilAPIInvalidRequestError
+      - BrasilAPIServiceUnavailableError
+      - BrasilAPIUnknownError
