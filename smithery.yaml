@@ -29,3 +29,41 @@ startCommand:
         env: env
       };
     }
+
+tools:
+  consultar_taxa_oficial:
+    description: Consulta o valor atual de uma taxa de juros ou índice oficial do Brasil via Brasil API.
+    parameters:
+      sigla:
+        type: string
+        description: Sigla da taxa ou índice oficial (ex: 'SELIC', 'CDI', 'IPCA').
+        minLength: 1
+        maxLength: 20
+    returns:
+      type: object
+      properties:
+        nome:
+          type: string
+        valor:
+          type: number
+    errors:
+      - ValidationError
+      - BrasilAPINotFoundError
+      - BrasilAPIInvalidRequestError
+      - BrasilAPIServiceUnavailableError
+      - BrasilAPIUnknownError
+  listar_tabelas_fipe:
+    description: Lista todas as tabelas de referência disponíveis para consulta na Tabela FIPE.
+    parameters: {}
+    returns:
+      type: array
+      items:
+        type: object
+        properties:
+          codigo:
+            type: integer
+          mes:
+            type: string
+    errors:
+      - BrasilAPIServiceUnavailableError
+      - BrasilAPIUnknownError

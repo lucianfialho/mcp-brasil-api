@@ -13,5 +13,7 @@ API_PATHS = {
     "feriados": "/feriados/v1/",
     "lista_cambio": "/cambio/v1/moedas/",
     "cambio": "/cambio/v1/cotacao/",
+    "taxas": "/taxas/v1/",
+    "tabelas_fipe": "/fipe/tabelas/v1/",  # NOVO PATH PARA TABELAS FIPE
     # Add more API paths as needed
 }
