@@ -15,5 +15,6 @@ API_PATHS = {
     "cambio": "/cambio/v1/cotacao/",
     "taxas": "/taxas/v1/",
     "tabelas_fipe": "/fipe/tabelas/v1/",  # NOVO PATH PARA TABELAS FIPE
+    "marcas_fipe": "/fipe/marcas/v1/",   # NOVO PATH PARA MARCAS FIPE
     # Add more API paths as needed
 }

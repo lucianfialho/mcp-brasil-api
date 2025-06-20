@@ -12,8 +12,8 @@ from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio, get_cambio_info
 from src.tools.banco import get_lista_banco, get_banco_info
 from src.tools.taxas import get_taxa_info
-from src.tools.schemas import ConsultarTaxaInput
-from src.tools.fipe import get_tabelas_fipe
+from src.tools.schemas import ConsultarTaxaInput, ListarMarcasFIPEInput
+from src.tools.fipe import get_tabelas_fipe, get_marcas_fipe
 from src.exceptions import (
     BrasilAPINotFoundError,
     BrasilAPIInvalidRequestError,
@@ -198,6 +198,26 @@ async def listar_tabelas_fipe():
         BrasilAPIUnknownError: Para outros erros inesperados.
     """
     return await get_tabelas_fipe()
+
+@mcp.tool()
+async def listar_marcas_fipe(input_data: ListarMarcasFIPEInput):
+    """
+    Lista as marcas de veículos disponíveis na Tabela FIPE para um tipo de veículo específico.
+
+    Args:
+        input_data (ListarMarcasFIPEInput): Objeto contendo o tipo de veículo e, opcionalmente, o código da tabela de referência.
+
+    Returns:
+        list: Uma lista de dicionários, cada um representando uma marca FIPE com 'nome' e 'valor'.
+
+    Raises:
+        ValidationError: Se os parâmetros fornecidos não forem válidos.
+        BrasilAPINotFoundError: Se o tipo de veículo ou a tabela não for encontrada na Brasil API.
+        BrasilAPIInvalidRequestError: Se a requisição para a Brasil API for inválida.
+        BrasilAPIServiceUnavailableError: Se o serviço da Brasil API estiver indisponível.
+        BrasilAPIUnknownError: Para outros erros inesperados.
+    """
+    return await get_marcas_fipe(input_data.tipo_veiculo, input_data.tabela_referencia)
 
 if __name__ == "__main__":
     mcp.run()
