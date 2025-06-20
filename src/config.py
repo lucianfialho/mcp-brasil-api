@@ -10,6 +10,7 @@ API_PATHS = {
     "cambio": "/cambio/v1/cotacao",
     "lista_banco": "/banks/v1",
     "banco": "/banks/v1",
+    "taxas": "/taxas/v1/",
     "tabelas_fipe": "/fipe/tabelas/v1",
     "marcas_fipe": "/fipe/marcas/v1",
     "veiculos_fipe": "/fipe/veiculos/v1",

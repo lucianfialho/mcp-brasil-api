@@ -11,8 +11,9 @@ from src.tools.ddd import get_ddd_info
 from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio, get_cambio_info
 from src.tools.banco import get_lista_banco, get_banco_info
-from src.tools.fipe import get_veiculos_fipe
-from src.tools.schemas import ListarVeiculosFIPEInput
+from src.tools.fipe import get_veiculos_fipe, get_tabelas_fipe
+from src.tools.taxas import get_taxa_info
+from src.tools.schemas import ListarVeiculosFIPEInput, ConsultarTaxaInput
 from src.exceptions import (
     BrasilAPINotFoundError,
     BrasilAPIInvalidRequestError,
@@ -182,6 +183,40 @@ async def listar_veiculos_fipe(
         list: Lista de veículos FIPE para a marca e tipo informados.
     """
     return await get_veiculos_fipe(tipo_veiculo, marca, tabela_referencia)
+
+@mcp.tool()
+async def consultar_taxa_oficial(input_data: ConsultarTaxaInput):
+    """
+    Obtém o valor atual de uma taxa de juros ou índice oficial do Brasil.
+
+    Args:
+        input_data (ConsultarTaxaInput): Objeto contendo a sigla da taxa desejada.
+
+    Returns:
+        dict: Um dicionário contendo o nome e o valor da taxa/índice.
+
+    Raises:
+        ValidationError: Se a sigla fornecida não estiver no formato correto.
+        BrasilAPINotFoundError: Se a taxa/índice não for encontrado.
+        BrasilAPIInvalidRequestError: Se a requisição para a Brasil API for inválida.
+        BrasilAPIServiceUnavailableError: Se o serviço da Brasil API estiver indisponível.
+        BrasilAPIUnknownError: Para outros erros inesperados.
+    """
+    return await get_taxa_info(input_data.sigla)
+
+@mcp.tool()
+async def listar_tabelas_fipe():
+    """
+    Lista todas as tabelas de referência disponíveis para consulta na Tabela FIPE.
+
+    Returns:
+        list: Uma lista de dicionários, cada um contendo o código e o mês da tabela de referência.
+
+    Raises:
+        BrasilAPIServiceUnavailableError: Se o serviço da Brasil API estiver indisponível.
+        BrasilAPIUnknownError: Para outros erros inesperados.
+    """
+    return await get_tabelas_fipe()
 
 if __name__ == "__main__":
     mcp.run()
