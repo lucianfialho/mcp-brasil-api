@@ -93,3 +93,32 @@ tools:
       - BrasilAPIInvalidRequestError
       - BrasilAPIServiceUnavailableError
       - BrasilAPIUnknownError
+  listar_veiculos_fipe:
+    description: Lista os modelos de veículos disponíveis na Tabela FIPE para uma marca e tipo de veículo específicos.
+    parameters:
+      tipo_veiculo:
+        type: string
+        description: Tipo de veículo para listar os modelos (ex: 'carros', 'motos', 'caminhoes').
+        enum: ["caminhoes", "carros", "motos"]
+      codigo_marca:
+        type: integer
+        description: Código da marca FIPE. Pode ser obtido com 'listar_marcas_fipe'.
+      tabela_referencia:
+        type: integer
+        description: Código da tabela FIPE de referência (opcional). Se omitido, usará a tabela atual.
+        required: false
+    returns:
+      type: array
+      items:
+        type: object
+        properties:
+          nome:
+            type: string
+          valor:
+            type: integer
+    errors:
+      - ValidationError
+      - BrasilAPINotFoundError
+      - BrasilAPIInvalidRequestError
+      - BrasilAPIServiceUnavailableError
+      - BrasilAPIUnknownError

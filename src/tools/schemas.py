@@ -21,3 +21,20 @@ class ListarMarcasFIPEInput(BaseModel):
         None,
         description="Código da tabela FIPE de referência (opcional). Se omitido, usará a tabela atual. Pode ser obtido com 'listar_tabelas_fipe'."
     )
+
+class ListarVeiculosFIPEInput(BaseModel):
+    """
+    Modelo de entrada para listar veículos FIPE por marca e tipo.
+    """
+    tipo_veiculo: Literal["caminhoes", "carros", "motos"] = Field(
+        ...,
+        description="Tipo de veículo para listar os modelos (ex: 'carros', 'motos', 'caminhoes')."
+    )
+    codigo_marca: int = Field(
+        ...,
+        description="Código da marca FIPE. Pode ser obtido com 'listar_marcas_fipe'."
+    )
+    tabela_referencia: Optional[int] = Field(
+        None,
+        description="Código da tabela FIPE de referência (opcional). Se omitido, usará a tabela atual. Pode ser obtido com 'listar_tabelas_fipe'."
+    )
