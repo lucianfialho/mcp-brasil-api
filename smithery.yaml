@@ -67,3 +67,29 @@ tools:
     errors:
       - BrasilAPIServiceUnavailableError
       - BrasilAPIUnknownError
+  listar_marcas_fipe:
+    description: Lista as marcas de veículos disponíveis na Tabela FIPE para um tipo específico (carros, motos, caminhões).
+    parameters:
+      tipo_veiculo:
+        type: string
+        description: Tipo de veículo para listar as marcas (ex: 'carros', 'motos', 'caminhoes').
+        enum: ["caminhoes", "carros", "motos"]
+      tabela_referencia:
+        type: integer
+        description: Código da tabela FIPE de referência (opcional). Se omitido, usará a tabela atual.
+        required: false
+    returns:
+      type: array
+      items:
+        type: object
+        properties:
+          nome:
+            type: string
+          valor:
+            type: integer
+    errors:
+      - ValidationError
+      - BrasilAPINotFoundError
+      - BrasilAPIInvalidRequestError
+      - BrasilAPIServiceUnavailableError
+      - BrasilAPIUnknownError

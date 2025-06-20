@@ -3,7 +3,7 @@
 """
 
 import httpx
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 from ..config import API_BASE_URL, API_PATHS, USER_AGENT
 from ..exceptions import (
@@ -13,13 +13,14 @@ from ..exceptions import (
     BrasilAPIUnknownError,
 )
 
-async def make_request(endpoint: str, *params: str) -> Dict[str, Any]:
+async def make_request(endpoint: str, *params: str, query_params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Função genérica para fazer requisições para a Brasil API.
     
     Args:
         endpoint: Nome do endpoint (ex: "cep", "cnpj")
         param: Parâmetro de caminho para o endpoint (ex: número do CEP ou CNPJ)
+        query_params: Parâmetros de query string (opcional)
         
     Returns:
         Dict contendo a resposta da API
@@ -40,11 +41,8 @@ async def make_request(endpoint: str, *params: str) -> Dict[str, Any]:
 
     async with httpx.AsyncClient() as client:
         try:
-            response = await client.get(
-                url,
-                headers={"User-Agent": USER_AGENT},
-            )
-            
+            request = client.build_request("GET", url, headers={"User-Agent": USER_AGENT}, params=query_params)
+            response = await client.send(request)
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
