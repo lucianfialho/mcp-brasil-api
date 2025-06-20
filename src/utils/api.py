@@ -34,10 +34,16 @@ async def make_request(endpoint: str, *params: str, query_params: Optional[Dict[
     path = API_PATHS.get(endpoint)
     if not path:
         raise BrasilAPIInvalidRequestError(f"Endpoint desconhecido: {endpoint}")
-    
+
     # Junta os path params com barra, garantindo que estejam limpos e não vazios
     full_path = "/".join(str(param).strip().strip("/") for param in params if param)
-    url = f"{API_BASE_URL}{path}{full_path}"
+    if full_path:
+        if path.endswith("/"):
+            url = f"{API_BASE_URL}{path}{full_path}"
+        else:
+            url = f"{API_BASE_URL}{path}/{full_path}"
+    else:
+        url = f"{API_BASE_URL}{path.rstrip('/')}"
 
     async with httpx.AsyncClient() as client:
         try:
