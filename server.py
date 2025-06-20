@@ -11,9 +11,14 @@ from src.tools.ddd import get_ddd_info
 from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio, get_cambio_info
 from src.tools.banco import get_lista_banco, get_banco_info
+<<<<<<< HEAD
 from src.tools.taxas import get_taxa_info
 from src.tools.schemas import ConsultarTaxaInput, ListarMarcasFIPEInput
 from src.tools.fipe import get_tabelas_fipe, get_marcas_fipe
+=======
+from src.tools.fipe import get_veiculos_fipe
+from src.tools.schemas import ListarVeiculosFIPEInput
+>>>>>>> 107cccf (feat(api): expõe ferramenta listar_veiculos_fipe no MCP server)
 from src.exceptions import (
     BrasilAPINotFoundError,
     BrasilAPIInvalidRequestError,
@@ -166,6 +171,7 @@ async def consultar_feriados(ano: str):
     return await get_feriados_info(ano)
 
 @mcp.tool()
+<<<<<<< HEAD
 async def consultar_taxa_oficial(input_data: ConsultarTaxaInput):
     """
     Obtém o valor atual de uma taxa de juros ou índice oficial do Brasil.
@@ -218,6 +224,25 @@ async def listar_marcas_fipe(input_data: ListarMarcasFIPEInput):
         BrasilAPIUnknownError: Para outros erros inesperados.
     """
     return await get_marcas_fipe(input_data.tipo_veiculo, input_data.tabela_referencia)
+=======
+async def listar_veiculos_fipe(
+    tipo_veiculo: str,
+    marca: int,
+    tabela_referencia: int = None
+):
+    """
+    Lista os modelos de veículos FIPE para uma marca e tipo de veículo específicos.
+
+    Args:
+        tipo_veiculo (str): Tipo do veículo ('carros', 'motos', 'caminhoes').
+        marca (int): Código da marca FIPE.
+        tabela_referencia (int, opcional): Código da tabela FIPE de referência.
+
+    Returns:
+        list: Lista de veículos FIPE para a marca e tipo informados.
+    """
+    return await get_veiculos_fipe(tipo_veiculo, marca, tabela_referencia)
+>>>>>>> 107cccf (feat(api): expõe ferramenta listar_veiculos_fipe no MCP server)
 
 if __name__ == "__main__":
     mcp.run()
