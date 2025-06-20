@@ -11,9 +11,15 @@ from src.tools.ddd import get_ddd_info
 from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio, get_cambio_info
 from src.tools.banco import get_lista_banco, get_banco_info
+<<<<<<< HEAD
 from src.tools.taxas import get_taxa_info
 from src.tools.schemas import ConsultarTaxaInput, ListarMarcasFIPEInput, ListarVeiculosFIPEInput
 from src.tools.fipe import get_tabelas_fipe, get_marcas_fipe, get_veiculos_fipe
+=======
+from src.tools.fipe import get_veiculos_fipe, get_tabelas_fipe
+from src.tools.taxas import get_taxa_info
+from src.tools.schemas import ListarVeiculosFIPEInput, ConsultarTaxaInput
+>>>>>>> 6ad4d73
 from src.exceptions import (
     BrasilAPINotFoundError,
     BrasilAPIInvalidRequestError,
@@ -166,6 +172,28 @@ async def consultar_feriados(ano: str):
     return await get_feriados_info(ano)
 
 @mcp.tool()
+<<<<<<< HEAD
+=======
+async def listar_veiculos_fipe(
+    tipo_veiculo: str,
+    marca: int,
+    tabela_referencia: int = None
+):
+    """
+    Lista os modelos de veículos FIPE para uma marca e tipo de veículo específicos.
+
+    Args:
+        tipo_veiculo (str): Tipo do veículo ('carros', 'motos', 'caminhoes').
+        marca (int): Código da marca FIPE.
+        tabela_referencia (int, opcional): Código da tabela FIPE de referência.
+
+    Returns:
+        list: Lista de veículos FIPE para a marca e tipo informados.
+    """
+    return await get_veiculos_fipe(tipo_veiculo, marca, tabela_referencia)
+
+@mcp.tool()
+>>>>>>> 6ad4d73
 async def consultar_taxa_oficial(input_data: ConsultarTaxaInput):
     """
     Obtém o valor atual de uma taxa de juros ou índice oficial do Brasil.
@@ -199,6 +227,7 @@ async def listar_tabelas_fipe():
     """
     return await get_tabelas_fipe()
 
+<<<<<<< HEAD
 @mcp.tool()
 async def listar_marcas_fipe(input_data: ListarMarcasFIPEInput):
     """
@@ -238,5 +267,7 @@ async def listar_veiculos_fipe(
     """
     return await get_veiculos_fipe(tipo_veiculo, marca, tabela_referencia)
 
+=======
+>>>>>>> 6ad4d73
 if __name__ == "__main__":
     mcp.run()

@@ -14,23 +14,47 @@ startCommand:
   commandFunction: |
     (config) => {
       const env = {};
-      
       if (config.api_base_url) {
         env.API_BASE_URL = config.api_base_url;
       }
-      
       if (config.user_agent) {
         env.USER_AGENT = config.user_agent;
       }
-      
       return {
         command: "python",
         args: ["server.py"],
         env: env
       };
     }
+<<<<<<< HEAD
 
 tools:
+=======
+tools:
+  listar_veiculos_fipe:
+    description: Lista os modelos de veículos FIPE para uma marca e tipo de veículo específicos.
+    parameters:
+      tipo_veiculo:
+        type: string
+        description: Tipo do veículo ('carros', 'motos', 'caminhoes').
+        required: true
+      marca:
+        type: integer
+        description: Código da marca FIPE.
+        required: true
+      tabela_referencia:
+        type: integer
+        description: Código da tabela FIPE de referência (opcional).
+        required: false
+    returns:
+      type: array
+      description: Lista de veículos FIPE para a marca e tipo informados.
+    errors:
+      - BrasilAPINotFoundError
+      - BrasilAPIInvalidRequestError
+      - BrasilAPIServiceUnavailableError
+      - BrasilAPIUnknownError
+>>>>>>> 6ad4d73
   consultar_taxa_oficial:
     description: Consulta o valor atual de uma taxa de juros ou índice oficial do Brasil via Brasil API.
     parameters:
@@ -66,6 +90,7 @@ tools:
             type: string
     errors:
       - BrasilAPIServiceUnavailableError
+<<<<<<< HEAD
       - BrasilAPIUnknownError
   listar_marcas_fipe:
     description: Lista as marcas de veículos disponíveis na Tabela FIPE para um tipo específico (carros, motos, caminhões).
@@ -115,4 +140,6 @@ tools:
       - BrasilAPINotFoundError
       - BrasilAPIInvalidRequestError
       - BrasilAPIServiceUnavailableError
+=======
+>>>>>>> 6ad4d73
       - BrasilAPIUnknownError
