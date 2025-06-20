@@ -11,6 +11,8 @@ from src.tools.ddd import get_ddd_info
 from src.tools.feriados import get_feriados_info
 from src.tools.cambio import get_lista_cambio, get_cambio_info
 from src.tools.banco import get_lista_banco, get_banco_info
+from src.tools.fipe import get_veiculos_fipe
+from src.tools.schemas import ListarVeiculosFIPEInput
 from src.exceptions import (
     BrasilAPINotFoundError,
     BrasilAPIInvalidRequestError,
@@ -161,6 +163,25 @@ async def consultar_feriados(ano: str):
         ValueError: Se o ano fornecido não estiver no formato correto ou não for válido.
     """
     return await get_feriados_info(ano)
+
+@mcp.tool()
+async def listar_veiculos_fipe(
+    tipo_veiculo: str,
+    marca: int,
+    tabela_referencia: int = None
+):
+    """
+    Lista os modelos de veículos FIPE para uma marca e tipo de veículo específicos.
+
+    Args:
+        tipo_veiculo (str): Tipo do veículo ('carros', 'motos', 'caminhoes').
+        marca (int): Código da marca FIPE.
+        tabela_referencia (int, opcional): Código da tabela FIPE de referência.
+
+    Returns:
+        list: Lista de veículos FIPE para a marca e tipo informados.
+    """
+    return await get_veiculos_fipe(tipo_veiculo, marca, tabela_referencia)
 
 if __name__ == "__main__":
     mcp.run()
