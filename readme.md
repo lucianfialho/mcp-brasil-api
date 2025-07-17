@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/lucianfialho-mcp-brasil-api-badge.png)](https://mseep.ai/app/lucianfialho-mcp-brasil-api)
+
 # MCP Brasil API
 
 > Plugando a Brasil API em todos os LLMs através do Model Context Protocol
